@@ -1,16 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-const easybarbershop = new Sequelize({
-    host: 'localhost',
-    database: 'easybarbershop',
-    username: 'postgres',
-    password: '1917',
-    dialect: 'postgres',
-    logging: console.log,
-    define:{
-        timestamps: true
-    }
-})
+
 
 export async function connect(){
     try {
