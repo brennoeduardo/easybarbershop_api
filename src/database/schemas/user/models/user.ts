@@ -44,8 +44,4 @@ User.init({
     updatedAt: "updated_at",
 })
 
-User.beforeCreate((user: User) => {
-    console.log(user);
-})
-
 export default User;

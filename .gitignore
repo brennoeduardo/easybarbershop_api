@@ -1,13 +1,7 @@
-*.env
+dist
+node_modules
 package-lock.json
 *.env
 yarn.lock
 yarn-error.log
 *.log
-dist
-```
-node_modules
-```
-
-## License
-

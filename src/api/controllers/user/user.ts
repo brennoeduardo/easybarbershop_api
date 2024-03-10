@@ -41,7 +41,7 @@ class UserController implements IController {
             const payload: IUserCreationAttributes = {
                 name: req.body.name,
                 nick: req.body.nick,
-                mail: req.body.email,
+                mail: req.body.mail,
                 password: req.body.password
             }
 
@@ -90,6 +90,14 @@ class UserController implements IController {
                 data
             });
 
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async login(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            return req.body
         } catch (error) {
             next(error);
         }
