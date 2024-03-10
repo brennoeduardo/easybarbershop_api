@@ -1,18 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
-import { UserService } from '../../services/user/index'
+import { BarberService } from '../../services/barber/index'
 import { IController } from '../../interfaces/controller';
-import { IUserCreationAttributes } from '../../../database/schemas';
+import { IBarberCreationAttributes, IBarberUpdateAttributes } from '../../../database/schemas/barber/interfaces';
 
-class UserController implements IController {
+class BarberController implements IController {
 
     async find(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             
-            const data = await UserService.find();
+            const data = await BarberService.find();
 
             res.status(200).json({
                 success: true,
-                message: 'Users found successfully',
+                message: 'Barbers found successfully',
                 data
 
             });
@@ -24,11 +24,11 @@ class UserController implements IController {
     async findOne(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const data = await UserService.findOne(parseInt(req.params.id));
+            const data = await BarberService.findOne(parseInt(req.params.id));
 
             res.status(200).json({
                 success: true,
-                message: 'User found successfully',
+                message: 'Barber found successfully',
                 data
             });
         } catch (error) {
@@ -38,18 +38,21 @@ class UserController implements IController {
 
     async create(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const payload: IUserCreationAttributes = {
+            const payload: IBarberCreationAttributes = {
                 name: req.body.name,
-                nick: req.body.nick,
+                address: req.body.address,
+                phone: req.body.phone,
                 mail: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                owner_id: req.body.owner_id,
+                avatar: req.body.avatar,
             }
 
-            const data = await UserService.create(payload);
+            const data = await BarberService.create(payload);
 
             res.status(201).json({
                 success: true,
-                message: 'User created successfully',
+                message: 'Barber created successfully',
                 data
             });
         } catch (error) {
@@ -60,18 +63,21 @@ class UserController implements IController {
     async update(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const payload: IUserCreationAttributes = {
+            const payload: IBarberUpdateAttributes = {
                 name: req.body.name,
-                nick: req.body.nick,
+                address: req.body.address,
+                phone: req.body.phone,
                 mail: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                owner_id: req.body.owner_id,
+                avatar: req.body.avatar,
             }
 
-            const data = await UserService.update(parseInt(req.params.id), payload);
+            const data = await BarberService.update(parseInt(req.params.id), payload);
 
             res.status(200).json({
                 success: true,
-                message: 'User updated successfully',
+                message: 'Barber updated successfully',
                 data
             });
         } catch (error) {
@@ -82,11 +88,11 @@ class UserController implements IController {
     async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const data = await UserService.delete(parseInt(req.params.id));
+            const data = await BarberService.delete(parseInt(req.params.id));
 
             res.status(204).json({
                 success: true,
-                message: 'User deleted successfully',
+                message: 'Barber deleted successfully',
                 data
             });
 
@@ -97,4 +103,4 @@ class UserController implements IController {
 
 }
 
-export default new UserController();
+export default new BarberController();

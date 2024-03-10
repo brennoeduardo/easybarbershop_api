@@ -1,9 +1,8 @@
-import { BaseRepository } from "../../../core/class/Repository";
 import { IUser, IUserCreationAttributes, IUserUpdateAttributes } from "../interfaces";
-import User from "../models/user";
+import User from "../models/User";
 
-export class UserRepository extends BaseRepository<User, IUserCreationAttributes, IUserUpdateAttributes> {
+export class UserRepository extends User {
     constructor() {
-        super(User);
+        super(new User()); 
     }
 }

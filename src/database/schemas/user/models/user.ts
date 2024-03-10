@@ -1,48 +1,51 @@
-import { Sequelize, DataTypes } from "sequelize";
-import { Entity } from "../../../core/class/Entity";
+import { DataTypes, Model } from "sequelize";
 import { IUser, IUserCreationAttributes } from "../interfaces/user";
+import easybarbershop from "../../../env";
 
-class User extends Entity<IUser, IUserCreationAttributes> implements IUser {
-    public declare nick: string;
-    public declare nome: string;
-    public declare email: string;
-    public declare password: string;
-
-    static instantiate(DB: Sequelize): void {
-        User.initialize<User, IUserCreationAttributes>({
-            schema: 'user',
-            tableName: 'tb_user',
-            name: {
-                plural: 'users',
-                singular: 'user'
-            },
-            fields: {
-                nick: {
-                    type: DataTypes.STRING,
-                    allowNull: false
-                },
-                nome: {
-                    type: DataTypes.STRING,
-                    allowNull: false
-                },
-                email: {
-                    type: DataTypes.STRING,
-                    allowNull: false,
-                },
-                password: {
-                    type: DataTypes.STRING,
-                    allowNull: false
-                }
-            },
-            timestamps: true,
-        }, DB);
-
-        User.associate();
-
-        User.beforeSync(() => {
-            console.log('before create');
-        });
-    }
+class User extends Model<IUser, IUserCreationAttributes> {
+    public id!: number;
+    public mail!: string;
+    public nick!: string;
+    public name!: string;
+    public password!: string;
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
 }
+
+User.init({
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    nick: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    mail: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+}, {
+    sequelize: easybarbershop,
+    tableName: "tb_user",
+    schema: "user",
+    timestamps: true,
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+})
+
+User.beforeCreate((user: User) => {
+    console.log(user);
+})
 
 export default User;

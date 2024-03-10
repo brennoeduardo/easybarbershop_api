@@ -1,9 +1,8 @@
-import { EntityAttributes } from '../../../core/interfaces/entity';
-
-export interface IUser extends EntityAttributes {
+export interface IUser{
+    id?: number;
     nick: string;
-    nome: string;
-    email: string;
+    name: string;
+    mail: string;
     password: string;
 }
 

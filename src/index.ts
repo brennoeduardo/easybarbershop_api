@@ -1,5 +1,5 @@
 import { connect } from "./database/env";
-import express, { Application} from "express";
+import express, { Application } from "express";
 import router from "./api/routes";
 import cors from "cors";
 

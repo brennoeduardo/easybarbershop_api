@@ -1,18 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
-import { UserService } from '../../services/user/index'
+import { Services } from '../../services/barber/index'
 import { IController } from '../../interfaces/controller';
-import { IUserCreationAttributes } from '../../../database/schemas';
+import { IService, IServiceUpdateAttributes } from '../../../database/schemas/barber/interfaces';
 
-class UserController implements IController {
+class ServiceController implements IController {
 
     async find(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             
-            const data = await UserService.find();
+            const data = await Services.find();
 
             res.status(200).json({
                 success: true,
-                message: 'Users found successfully',
+                message: 'Services found successfully',
                 data
 
             });
@@ -24,11 +24,11 @@ class UserController implements IController {
     async findOne(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const data = await UserService.findOne(parseInt(req.params.id));
+            const data = await Services.findOne(parseInt(req.params.id));
 
             res.status(200).json({
                 success: true,
-                message: 'User found successfully',
+                message: 'Services found successfully',
                 data
             });
         } catch (error) {
@@ -38,18 +38,18 @@ class UserController implements IController {
 
     async create(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const payload: IUserCreationAttributes = {
+            const payload: IService = {
+                duration: req.body.duration,
                 name: req.body.name,
-                nick: req.body.nick,
-                mail: req.body.email,
-                password: req.body.password
+                price: req.body.price,
+                description: req.body.description,
             }
 
-            const data = await UserService.create(payload);
+            const data = await Services.create(payload);
 
             res.status(201).json({
                 success: true,
-                message: 'User created successfully',
+                message: 'Services created successfully',
                 data
             });
         } catch (error) {
@@ -60,18 +60,18 @@ class UserController implements IController {
     async update(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const payload: IUserCreationAttributes = {
+            const payload: IServiceUpdateAttributes = {
+                duration: req.body.duration,
                 name: req.body.name,
-                nick: req.body.nick,
-                mail: req.body.email,
-                password: req.body.password
+                price: req.body.price,
+                description: req.body.description,
             }
 
-            const data = await UserService.update(parseInt(req.params.id), payload);
+            const data = await Services.update(parseInt(req.params.id), payload);
 
             res.status(200).json({
                 success: true,
-                message: 'User updated successfully',
+                message: 'Services updated successfully',
                 data
             });
         } catch (error) {
@@ -82,11 +82,11 @@ class UserController implements IController {
     async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const data = await UserService.delete(parseInt(req.params.id));
+            const data = await Services.delete(parseInt(req.params.id));
 
             res.status(204).json({
                 success: true,
-                message: 'User deleted successfully',
+                message: 'Services deleted successfully',
                 data
             });
 
@@ -97,4 +97,4 @@ class UserController implements IController {
 
 }
 
-export default new UserController();
+export default new ServiceController();
