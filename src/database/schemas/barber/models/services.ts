@@ -1,8 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import { IService, IServiceCreationAttributes } from "../interfaces";
 import easybarbershop from "../../../env";
-import Barber from "./barber";
-import ServiceBarber from "./serviceBarber";
+import Barber from "./Barber";
+import ServiceBarber from "./ServiceBarber";
 
 class Services extends Model<IService, IServiceCreationAttributes> {
     public id!: number;
@@ -12,6 +12,8 @@ class Services extends Model<IService, IServiceCreationAttributes> {
     public description!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+    
+    public servicesBarber: ServiceBarber[] | undefined
 }
 
 Services.init({
@@ -47,7 +49,6 @@ Services.init({
     }
 )
 
-Barber.belongsToMany(Services, { foreignKey: { name: 'barber_id', allowNull: false }, through: ServiceBarber });
-Services.belongsToMany(Barber, { foreignKey: { name: 'service_id', allowNull: false }, through: ServiceBarber });
+Services.belongsToMany(Barber, { through: ServiceBarber, foreignKey: 'service_id' });
 
 export default Services;

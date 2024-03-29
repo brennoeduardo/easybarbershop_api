@@ -1,21 +1,19 @@
 import { DataTypes, Model } from "sequelize";
-import { IBarber, IBarberCreationAttributes } from "../interfaces";
+import { IBarberShop, IBarberShopCreationAttributes } from "../interfaces";
 import easybarbershop from "../../../env";
-import BarberShop from "./BarberShop";
-import Services from "./Services";
-import ServiceBarber from "./ServiceBarber";
 
-class Barber extends Model<IBarber, IBarberCreationAttributes> {
+class BarberShop extends Model<IBarberShop, IBarberShopCreationAttributes> {
     public id!: number;
     public name!: string;
     public phone!: string;
-    public barbershop_id!: number;
+    public address!: string;
     public description!: string;
+    public openingHours!: JSON;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
 
-Barber.init({
+BarberShop.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -31,24 +29,23 @@ Barber.init({
     },
     description: {
         type: DataTypes.TEXT,
-        allowNull: true
+        allowNull: false
     },
-    barbershop_id: {
-        type: DataTypes.INTEGER,
+    address: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    openingHours: {
+        type: DataTypes.JSONB,
         allowNull: false
     }
 }, {
     sequelize: easybarbershop,
-    tableName: "tb_barber",
+    tableName: "tb_barbershop",
     schema: "barber",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
 })
 
-Barber.belongsTo(BarberShop, { foreignKey: { name: 'barbershop_id', allowNull: false } })
-BarberShop.hasMany(Barber, { foreignKey: { name: 'barbershop_id', allowNull: false } })
-
-Barber.belongsToMany(Services, { through: ServiceBarber, foreignKey: 'barber_id' });
-
-export default Barber;
+export default BarberShop;

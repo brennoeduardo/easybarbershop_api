@@ -1,17 +1,26 @@
-import Service from "../../../database/schemas/barber/models/services";
-import { IService, IServiceCreationAttributes, IServiceUpdateAttributes } from "../../../database/schemas/barber/interfaces";
-class Services {
+import Service from "../../../database/schemas/barber/models/Services";
+import { IService, IServiceBarber, IServiceCreationAttributes, IServiceUpdateAttributes } from "../../../database/schemas/barber/interfaces";
+import { ServiceBarber } from "../../../database/schemas";
+import Services from "../../../database/schemas/barber/models/Services";
+class ServicesService {
 
-    async find(): Promise<IService[]> {
+    async find(): Promise<Service[]> {
         return await Service.findAll();
     }
 
-    async findOne(id: number): Promise<IService | null> {
-        return await Service.findOne({ where: { id } });
+    async findOne(barber_id: number): Promise<any> {
+        return await Services.findOne({
+            include: [
+                {
+                    model: ServiceBarber,
+                    where: { barber_id }
+                }
+            ]
+        });
     }
 
-    async create(service: IServiceCreationAttributes): Promise<IService> {
-        return await Service.create(service);
+    async create(service: IServiceCreationAttributes): Promise<Service> {
+        return await Services.create(service);
     }
 
     async delete(id: number): Promise<number> {
@@ -24,4 +33,4 @@ class Services {
 
 }
 
-export default new Services();
+export default new ServicesService();

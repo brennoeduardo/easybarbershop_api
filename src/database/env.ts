@@ -15,7 +15,7 @@ const easybarbershop = new Sequelize({
 
 export async function connect() {
     try {
-        await easybarbershop.sync({ alter: true});
+        await easybarbershop.sync({ alter: true });
         console.log('Connection has been established successfully.')
     } catch (error) {
         console.error('Unable to connect to the database:', error);

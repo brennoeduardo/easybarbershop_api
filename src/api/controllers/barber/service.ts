@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { Services } from '../../services/barber/index'
+import { ServicesService } from '../../services/barber/index'
 import { IController } from '../../interfaces/controller';
 import { IService, IServiceUpdateAttributes } from '../../../database/schemas/barber/interfaces';
 
@@ -8,8 +8,8 @@ class ServiceController implements IController {
     async find(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             
-            const data = await Services.find();
-
+            const data = await ServicesService.find();
+            
             res.status(200).json({
                 success: true,
                 message: 'Services found successfully',
@@ -24,7 +24,7 @@ class ServiceController implements IController {
     async findOne(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const data = await Services.findOne(parseInt(req.params.id));
+            const data = await ServicesService.findOne(parseInt(req.params.id));
 
             res.status(200).json({
                 success: true,
@@ -45,11 +45,11 @@ class ServiceController implements IController {
                 description: req.body.description,
             }
 
-            const data = await Services.create(payload);
+            const data = await ServicesService.create(payload);
 
             res.status(201).json({
                 success: true,
-                message: 'Services created successfully',
+                message: 'ServicesService created successfully',
                 data
             });
         } catch (error) {
@@ -67,7 +67,7 @@ class ServiceController implements IController {
                 description: req.body.description,
             }
 
-            const data = await Services.update(parseInt(req.params.id), payload);
+            const data = await ServicesService.update(parseInt(req.params.id), payload);
 
             res.status(200).json({
                 success: true,
@@ -82,7 +82,7 @@ class ServiceController implements IController {
     async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const data = await Services.delete(parseInt(req.params.id));
+            const data = await ServicesService.delete(parseInt(req.params.id));
 
             res.status(204).json({
                 success: true,

@@ -1,16 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-import { BarberService } from '../../services/barber/index'
+import { BarberShopService } from '../../services/barber/index'
 import { IController } from '../../interfaces/controller';
-import { IBarberCreationAttributes, IBarberUpdateAttributes } from '../../../database/schemas/barber/interfaces';
+import { IBarberCreationAttributes, IBarberShopCreationAttributes, IBarberShopUpdateAttributes, IBarberUpdateAttributes } from '../../../database/schemas/barber/interfaces';
 
-class BarberController implements IController {
+class BarberShopController implements IController {
 
     async find(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             
-            console.log('teste');
-            
-            const data = await BarberService.find();
+            const data = await BarberShopService.find();
 
             res.status(200).json({
                 success: true,
@@ -26,7 +24,7 @@ class BarberController implements IController {
     async findOne(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const data = await BarberService.findOne(parseInt(req.params.id));
+            const data = await BarberShopService.findOne(parseInt(req.params.id));
 
             res.status(200).json({
                 success: true,
@@ -40,13 +38,15 @@ class BarberController implements IController {
 
     async create(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const payload: IBarberCreationAttributes = {
+            const payload: IBarberShopCreationAttributes = {
                 name: req.body.name,
                 phone: req.body.phone,
+                address: req.body.address,
+                openingHours: req.body.openingHours,
                 description: req.body.description,
             }
 
-            const data = await BarberService.create(payload);
+            const data = await BarberShopService.create(payload);
 
             res.status(201).json({
                 success: true,
@@ -61,13 +61,15 @@ class BarberController implements IController {
     async update(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const payload: IBarberUpdateAttributes = {
+            const payload: IBarberShopUpdateAttributes = {
                 name: req.body.name,
                 phone: req.body.phone,
+                address: req.body.address,
+                openingHours: req.body.openingHours,
                 description: req.body.description,
             }
 
-            const data = await BarberService.update(parseInt(req.params.id), payload);
+            const data = await BarberShopService.update(parseInt(req.params.id), payload);
 
             res.status(200).json({
                 success: true,
@@ -82,7 +84,7 @@ class BarberController implements IController {
     async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
 
-            const data = await BarberService.delete(parseInt(req.params.id));
+            const data = await BarberShopService.delete(parseInt(req.params.id));
 
             res.status(204).json({
                 success: true,
@@ -97,4 +99,4 @@ class BarberController implements IController {
 
 }
 
-export default new BarberController();
+export default new BarberShopController();

@@ -7,7 +7,7 @@ const router = Router();
 
 router.use('/user', userRouter);
 router.use('/barber', barberRouter);
-router.use('/barber/service', serviceRouter);
-router.use('/barber/serviceBarber', serviceRouter);
+router.use('/service', serviceRouter);
+router.use('/serviceBarber', serviceRouter);
 
 export default router;

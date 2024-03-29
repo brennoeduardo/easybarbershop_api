@@ -7,7 +7,7 @@ class UserController implements IController {
 
     async find(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            
+
             const data = await UserService.find();
 
             res.status(200).json({
@@ -40,7 +40,8 @@ class UserController implements IController {
         try {
             const payload: IUserCreationAttributes = {
                 name: req.body.name,
-                nick: req.body.nick,
+                lastName: req.body.lastName,
+                phone: req.body.phone,
                 mail: req.body.mail,
                 password: req.body.password
             }
@@ -62,8 +63,9 @@ class UserController implements IController {
 
             const payload: IUserCreationAttributes = {
                 name: req.body.name,
-                nick: req.body.nick,
-                mail: req.body.email,
+                lastName: req.body.lastName,
+                phone: req.body.phone,
+                mail: req.body.mail,
                 password: req.body.password
             }
 
@@ -102,6 +104,8 @@ class UserController implements IController {
             next(error);
         }
     }
+
+    
 
 }
 

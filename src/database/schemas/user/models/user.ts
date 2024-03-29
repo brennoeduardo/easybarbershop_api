@@ -5,8 +5,9 @@ import easybarbershop from "../../../env";
 class User extends Model<IUser, IUserCreationAttributes> {
     public id!: number;
     public mail!: string;
-    public nick!: string;
+    public phone!: string;
     public name!: string;
+    public lastName!: string;
     public password!: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -18,11 +19,15 @@ User.init({
         autoIncrement: true,
         primaryKey: true
     },
-    nick: {
+    lastName: {
         type: DataTypes.STRING,
         allowNull: false
     },
     name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    phone: {
         type: DataTypes.STRING,
         allowNull: false
     },

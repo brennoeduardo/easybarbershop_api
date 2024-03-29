@@ -35,7 +35,7 @@ export default async function AuthLogin(req: Request, res: Response, next: NextF
 
         const secret = config().parsed?.SECRET || "";
 
-        const token = jwt.sign({ user_id: user.id, mail: user.mail, nick: user.nick, name: user.name }, secret, { expiresIn: '30d' });
+        const token = jwt.sign({ user_id: user.id, mail: user.mail, name: user.name, lastName: user.lastName, phone: user.phone }, secret, { expiresIn: '30d' });
 
         return res.json({
             token,

@@ -1,4 +1,4 @@
-import ServiceBarber from "../../../database/schemas/barber/models/serviceBarber";
+import ServiceBarber from "../../../database/schemas/barber/models/ServiceBarber";
 import { IServiceBarber, IServiceBarberCreationAttributes, IServiceBarberUpdateAttributes } from "../../../database/schemas/barber/interfaces";
 class UserServiceBarber {
 

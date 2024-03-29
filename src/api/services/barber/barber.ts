@@ -1,6 +1,6 @@
-import Barber from "../../../database/schemas/barber/models/barber"
+import Barber from "../../../database/schemas/barber/models/Barber"
 import { IBarber, IBarberCreationAttributes, IBarberUpdateAttributes } from "../../../database/schemas/barber/interfaces";
-class UserService {
+class BarberService {
 
     async find(): Promise<IBarber[]> {
         return await Barber.findAll();
@@ -24,4 +24,4 @@ class UserService {
 
 }
 
-export default new UserService();
+export default new BarberService();
